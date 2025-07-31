@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        # 본인의 v2.0 이미지 주소로 변경
+        image: your-dockerhub-username/k8s-labs-todo-backend:v2.0
+        ports:
+        - containerPort: 8080

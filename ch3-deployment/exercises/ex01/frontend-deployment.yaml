@@ -3,18 +3,17 @@ kind: Deployment
 metadata:
   name: frontend-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend # Selector와 일치해야 함
     spec:
       containers:
       - name: frontend
-        # ❗️ 이전 실습에서 사용한 본인의 Docker Hub 이미지로 변경해주세요.
-        image: hoon9785/k8s-labs-todo-frontend:latest
+        image: hoon9785/k8s-labs-todo-frontend:latest # 본인의 이미지 주소로 변경
         ports:
         - containerPort: 3000

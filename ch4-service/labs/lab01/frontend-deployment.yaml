@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        # ❗️ 이전 실습에서 사용한 본인의 Docker Hub 이미지로 변경해주세요.
         image: hoon9785/k8s-labs-todo-frontend:latest
         ports:
         - containerPort: 3000
