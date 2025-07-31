@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend # Selector와 일치해야 함
+    spec:
+      containers:
+      - name: frontend
+        image: hoon9785/k8s-labs-todo-frontend:latest # 본인의 이미지 주소로 변경
+        ports:
+        - containerPort: 3000

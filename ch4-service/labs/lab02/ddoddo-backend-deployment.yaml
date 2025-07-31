@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-server
+  labels:
+    app: backend-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-server
+  template:
+    metadata:
+      labels:
+        app: backend-server
+    spec:
+      containers:
+        - name: backend
+          image: captainyun/ddoddo-market-backend:v1.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_URL
+              value: "jdbc:postgresql://ddoddo-market-db-service:5432/ddoddo_market_db"
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "pass1234"
+
+            - name: JWT_SET_URI
+              value: "https://mtlibbxngzujgdzlhonx.supabase.co/auth/v1/jwks"
+            - name: JWT_SECRET_KEY
+              value: "aSsVEwALE6PfklZfvu166QsrFhAFEOZ7vvgTFZL5i/fjhWTXfyh/30+n9jSnARYjTw8wgSZKuh7G6lg5Qze9JQ=="
+
+            - name: CLOUDFLARE_ACCESS_KEY_ID
+              value: "ab37cc0dba76820015630cc5634e20c5"
+            - name: CLOUDFLARE_SECRET_ACCESS_KEY
+              value: "ec31815acf924e7437ba0c830733931727262785c368e792bf44598d2707892b"
+            - name: CLOUDFLARE_R2_BUCKET_NAME
+              value: "ddoddo-market-images"
+            - name: CLOUDFLARE_ACCOUNT_ID
+              value: "b1a90b67b85de872ba3445d7438bb476"
+            - name: CLOUDFLARE_R2_PUBLIC_URL
+              value: "https://pub-24f25b071d6d4f04b7a072d3d06791b8.r2.dev"
+            - name: DDL_AUTO
+              value: "create"
+            - name: SHOW_SQL
+              value: "true"

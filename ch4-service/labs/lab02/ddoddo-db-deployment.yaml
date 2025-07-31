@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ddoddo-market-db
+  labels:
+    app: ddoddo-market-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ddoddo-market-db
+  template:
+    metadata:
+      labels:
+        app: ddoddo-market-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "root"
+            - name: POSTGRES_PASSWORD
+              value: "pass1234"
+            - name: POSTGRES_DB
+              value: "ddoddo_market_db"
