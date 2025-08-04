@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo-list-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      # 먼저 구체적인 경로 (/api)
+      - path: /api(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-backend-svc
+            port:
+              number: 80
+      # 그 다음 일반적인 경로 (/)
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-frontend-svc
+            port:
+              number: 80

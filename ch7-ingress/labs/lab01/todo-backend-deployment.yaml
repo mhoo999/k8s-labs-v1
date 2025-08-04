@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+      - name: backend
+        image: hoon9785/k8s-labs-todo-backend:latest
+        env:
+        # PostgreSQL 설정으로 수정
+        - name: DB_HOST
+          value: "postgresql-svc"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: "todoapp"
+        - name: DB_USER
+          value: "todouser"
+        - name: DB_PASSWORD
+          value: "todopassword"
+        ports:
+        - containerPort: 8080
